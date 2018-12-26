@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  </head>
+
+  <body>
+    <video id="video"></video>
+    <canvas id="canvas"></canvas>
+    <button id="recordBtn">open</button>
+    <button id="capture-btn">capture</button>
+    <script>
+      function open() {
+        navigator.getUserMedia({
+            audio: false,
+            video: {
+              /*width: 128 * 3, height: 72 * 3,*/
+              mandatory: {
+                chromeMediaSource: "screen",
+                chromeMediaSourceId: 1,
+                minWidth: 1280,
+                maxWidth: 1280,
+                minHeight: 720,
+                maxHeight: 720,
+              },
+            },
+          },
+          function (stream) {
+            var video = document.querySelector("video");
+            video.src = window.URL.createObjectURL(stream);
+            video.onloadedmetadata = function (e) {
+              video.play();
+            };
+          },
+          function (err) {
+            console.log("The following error occurred: " + err.name);
+          },
+        );
+      }
+
+      document.getElementById("recordBtn").addEventListener("click", function () {
+        open();
+      });
+      open();
+    </script>
+  </body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  </head>
+
+  <body>
+    <video id="video" width="800" height="500"></video>
+    <canvas id="canvas"></canvas>
+    <button id="recordBtn">open</button>
+    <button id="capture-btn">capture</button>
+    <script>
+      function open() {
+        var videoElement = document.getElementById("video");
+        navigator.getDisplayMedia({ video: true })
+          .then(stream => {
+            console.log(stream);
+            window.s = stream;
+            videoElement.srcObject = stream;
+            videoElement.play();
+          }, error => console.log(error));
+      }
+
+      document.getElementById("recordBtn").addEventListener("click", function () {
+        open();
+      });
+      open();
+    </script>
+  </body>
+
+</html>
